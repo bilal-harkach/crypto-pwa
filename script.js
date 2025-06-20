@@ -15,11 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
   loadCryptoCards();
 });
 
+
 function filter(gefilterd) {
   document.querySelectorAll('.mdc-image-list__item').forEach(tab => tab.classList.add('hidden'));
   document.querySelectorAll(`.${gefilterd}`).forEach(element => element.classList.remove('hidden'));
 }
 
+// alle actieve tabs verwijderen
 function alleVerwijderen() {
   document.querySelectorAll('.mdc-tab').forEach(tab => {
     tab.classList.remove('mdc-tab--active');
@@ -31,6 +33,7 @@ function alleVerwijderen() {
   document.querySelectorAll('.mdc-image-list__item').forEach(element => element.classList.remove('hidden'));
 }
 
+// sheet openen en sluiten
 function openSheet(sheetId) {
   document.getElementById(sheetId).classList.remove("sheet-out-of-view");
   document.getElementById(sheetId).classList.add("open");
@@ -51,6 +54,8 @@ document.getElementById('overlay').addEventListener('click', () => {
   document.getElementById('overlay').classList.remove('active');
 });
 
+
+// Laad de crypto kaarten bij het laden van de pagina
 async function loadCryptoCards() {
   const response = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=true");
   const data = await response.json();
@@ -111,6 +116,8 @@ async function loadCryptoCards() {
 const sheet = document.getElementById("coin-sheet");
 const closeBtn = sheet.querySelector(".close-btn");
 
+
+// hier laad ik de coin details in de coin-sheet het moet via hier van je moet eerst weten welke coin je wilt zien daarom niet cia html
 function showCoinSheet(coin) {
   document.getElementById("coin-title").textContent = coin.name;
   document.getElementById("coin-image").src = coin.image;
@@ -152,6 +159,7 @@ document.getElementById("coin-search").addEventListener("input", (e) => {
   });
 });
 
+// hier laad ik de marktgegevens in de market-sheet
 async function loadMarketData() {
   const response = await fetch("https://api.coingecko.com/api/v3/global");
   const data = await response.json();
@@ -172,6 +180,7 @@ function openNewsSheet() {
   openSheet("news-sheet");
 }
 
+// Register service worker and handle PWA installation prompt
 let deferredPrompt;
 const installBtn = document.getElementById('install-button');
 installBtn.style.display = "none";
