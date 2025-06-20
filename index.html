@@ -37,8 +37,9 @@
 
             </section>
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+                <button id="search-btn" class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
                     aria-label="Search">search</button>
+
                 <button onclick="openMarketSheet()" class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
                     aria-label="Info">Information</button>
                 <button onclick="openNewsSheet()" class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
@@ -119,6 +120,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="search-container" class="hidden" style="padding: 16px;">
+            <input id="coin-search" type="text" placeholder="Zoek een coin..."
+                style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ccc;">
         </div>
 
         <div id="crypto-cards" style="display: flex; flex-wrap: wrap; gap: 16px;"></div>

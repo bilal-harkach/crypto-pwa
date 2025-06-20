@@ -154,3 +154,7 @@ footer .mdc-tab__icon {
 .overlay.active {
   display: block;
 }
+
+.hidden {
+  display: none !important;
+}
