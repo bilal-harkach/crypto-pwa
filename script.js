@@ -167,6 +167,36 @@ function openNewsSheet() {
 
 document.querySelector("#news-sheet .close-sheet").addEventListener("click", () => closeSheet("news-sheet"));
 
+let deferredPrompt;
+const installBtn = document.getElementById('install-button');
+
+// Verberg de knop standaard
+installBtn.style.display = "none";
+
+// Luister naar het install prompt event
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault(); // Voorkom automatische prompt
+  deferredPrompt = e;
+
+  // Toon de knop nu
+  installBtn.style.display = "inline-flex";
+
+  installBtn.addEventListener("click", () => {
+    installBtn.style.display = "none"; // Verberg knop na klik
+    deferredPrompt.prompt(); // Toon prompt
+
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("✅ App geïnstalleerd!");
+      } else {
+        console.log("❌ Installatie geweigerd.");
+      }
+      deferredPrompt = null;
+    });
+  });
+});
+
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
