@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     tab.setAttribute('aria-selected', 'false');
     tab.querySelector('.mdc-tab-indicator').classList.remove('mdc-tab-indicator--active');
   });
-
   loadCryptoCards();
 });
 
@@ -20,7 +19,6 @@ function filter(gefilterd) {
   document.querySelectorAll('.mdc-image-list__item').forEach(tab => tab.classList.add('hidden'));
   document.querySelectorAll(`.${gefilterd}`).forEach(element => element.classList.remove('hidden'));
 }
-
 function alleVerwijderen() {
   document.querySelectorAll('.mdc-tab').forEach(tab => {
     tab.classList.remove('mdc-tab--active');
@@ -56,13 +54,10 @@ async function loadCryptoCards() {
   const response = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=true");
   const data = await response.json();
   const container = document.getElementById("crypto-cards");
-  container.innerHTML = ""; // maak container leeg voordat je laadt
 
   data.forEach(coin => {
-    // Bepaal welke capClass deze coin krijgt
     const marketCap = coin.market_cap;
     let capClass = "";
-
     if (marketCap >= 10_000_000_000) {
       capClass = "large";
     } else if (marketCap >= 1_000_000_000) {
@@ -71,7 +66,6 @@ async function loadCryptoCards() {
       capClass = "small";
     }
 
-    // Bereid visuele waarden voor
     const changeColor = coin.price_change_percentage_24h >= 0 ? "green" : "red";
     const priceFormatted = `$${coin.current_price.toLocaleString()}`;
     const changeFormatted = `${coin.price_change_percentage_24h.toFixed(2)}%`;
@@ -80,10 +74,8 @@ async function loadCryptoCards() {
       .map((p, i) => `${i * 3},${50 - (p - Math.min(...coin.sparkline_in_7d.price)) * 2}`)
       .join(" ");
 
-    // Maak de kaart aan
     const card = document.createElement("div");
-    card.classList.add("mdc-image-list__item", capClass); // <-- capClass hier toegevoegd
-
+    card.classList.add("mdc-image-list__item", capClass);
     card.style = `
       width: 90%;
       border: 1px solid #eee;
@@ -115,7 +107,6 @@ async function loadCryptoCards() {
   });
 }
 
-
 const sheet = document.getElementById("coin-sheet");
 const closeBtn = sheet.querySelector(".close-btn");
 
@@ -142,8 +133,23 @@ function showCoinSheet(coin) {
 
 closeBtn.addEventListener("click", () => closeSheet("coin-sheet"));
 
-const marketCloseBtn = document.querySelector("#market-sheet .close-sheet");
-marketCloseBtn.addEventListener("click", () => closeSheet("market-sheet"));
+document.querySelector("#market-sheet .close-sheet").addEventListener("click", () => closeSheet("market-sheet"));
+
+document.querySelector("#news-sheet .close-sheet").addEventListener("click", () => closeSheet("news-sheet"));
+
+document.getElementById("search-btn").addEventListener("click", () => {
+  const searchContainer = document.getElementById("search-container");
+  searchContainer.classList.toggle("hidden");
+});
+
+document.getElementById("coin-search").addEventListener("input", (e) => {
+  const zoekterm = e.target.value.toLowerCase();
+  const alleKaarten = document.querySelectorAll("#crypto-cards > div");
+  alleKaarten.forEach(card => {
+    const naam = card.textContent.toLowerCase();
+    card.style.display = naam.includes(zoekterm) ? "block" : "none";
+  });
+});
 
 async function loadMarketData() {
   const response = await fetch("https://api.coingecko.com/api/v3/global");
@@ -165,64 +171,23 @@ function openNewsSheet() {
   openSheet("news-sheet");
 }
 
-
-document.getElementById("search-btn").addEventListener("click", () => {
-  const searchContainer = document.getElementById("search-container");
-  searchContainer.classList.toggle("hidden");
-});
-
-
-document.getElementById("coin-search").addEventListener("input", (e) => {
-  const zoekterm = e.target.value.toLowerCase();
-  const alleKaarten = document.querySelectorAll("#crypto-cards > div");
-
-  alleKaarten.forEach(card => {
-    const naam = card.textContent.toLowerCase();
-    if (naam.includes(zoekterm)) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  });
-});
-
-
-document.querySelector("#news-sheet .close-sheet").addEventListener("click", () => closeSheet("news-sheet"));
-
-
-
-
-////////////////////////////////////////////////////////////////////////
-
 let deferredPrompt;
 const installBtn = document.getElementById('install-button');
-
-// Verberg de knop standaard
 installBtn.style.display = "none";
 
-// Luister naar het install prompt event
 window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault(); // Voorkom automatische prompt
+  e.preventDefault();
   deferredPrompt = e;
-
-  // Toon de knop nu
   installBtn.style.display = "inline-flex";
 
   installBtn.addEventListener("click", () => {
-    installBtn.style.display = "none"; // Verberg knop na klik
-    deferredPrompt.prompt(); // Toon prompt
-
+    installBtn.style.display = "none";
+    deferredPrompt.prompt();
     deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === "accepted") {
-        console.log("✅ App geïnstalleerd!");
-      } else {
-        console.log("❌ Installatie geweigerd.");
-      }
       deferredPrompt = null;
     });
   });
 });
-
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -232,4 +197,5 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.error('❌ Fout bij registratie:', err));
   });
 }
+
 

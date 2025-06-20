@@ -8,7 +8,7 @@ body {
   background-color: #f5f5f5;
 }
 
-/* Algemene layout */
+
 .hidden {
   display: none;
 }
@@ -20,7 +20,7 @@ body {
   justify-content: center;
 }
 
-/* Material tabs/drawer */
+
 .mdc-drawer .mdc-list-item__text {
   color: #000;
 }
@@ -29,7 +29,7 @@ body {
   background: #fff;
 }
 
-/* Afbeeldingenlijst */
+
 .mdc-image-list--masonry {
   column-count: 2;
   gap: 8px;
@@ -40,7 +40,7 @@ body {
   width: 100%;
 }
 
-/* Overlay voor sheets */
+
 #overlay,
 .mdc-bottom-sheet__scrim {
   position: fixed;
@@ -55,7 +55,7 @@ body {
   display: block;
 }
 
-/* Basis styling voor alle sheets */
+
 .sheet,
 .mdc-bottom-sheet {
   position: fixed;
@@ -67,7 +67,7 @@ body {
   overflow: hidden;
 }
 
-/* Sheet vanuit onder */
+
 .sheet {
   left: 0;
   right: 0;
@@ -80,7 +80,7 @@ body {
   transform: translateY(0%);
 }
 
-/* Sheet vanuit rechts */
+
 .mdc-bottom-sheet.from-right {
   top: 0;
   bottom: 0;
@@ -94,7 +94,7 @@ body {
   transform: translateX(0);
 }
 
-/* Sheet vanuit links */
+
 .mdc-bottom-sheet.from-left {
   top: 0;
   bottom: 0;
@@ -108,7 +108,7 @@ body {
   transform: translateX(0);
 }
 
-/* Inhoud van de sheets */
+
 .sheet-header,
 .mdc-bottom-sheet__header {
   padding: 12px 16px;
