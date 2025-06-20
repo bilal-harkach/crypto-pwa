@@ -165,13 +165,13 @@ function openNewsSheet() {
   openSheet("news-sheet");
 }
 
-// Toggle zoekbalk
+
 document.getElementById("search-btn").addEventListener("click", () => {
   const searchContainer = document.getElementById("search-container");
   searchContainer.classList.toggle("hidden");
 });
 
-// Live zoeken op coin naam of ticker
+
 document.getElementById("coin-search").addEventListener("input", (e) => {
   const zoekterm = e.target.value.toLowerCase();
   const alleKaarten = document.querySelectorAll("#crypto-cards > div");
