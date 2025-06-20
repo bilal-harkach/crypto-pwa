@@ -194,3 +194,199 @@
 </body>
 
 </html>
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <!-- Vereiste meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#46dcf1" />
+
+    <title>CryptoTracker</title>
+
+    <!-- Material.io bestanden (CSS & Font/icons)-->
+    <!-- Uitleg werking componenents: https://material.io/components?platform=web -->
+    <!-- Demo van components:         https://material-components.github.io/material-components-web-catalog/#/ -->
+    <!-- Demo en uitleg icons:        https://fonts.google.com/icons?selected=Material+Icons -->
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Material.io bestanden (JS en registratie componenten) -->
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script>const MDCBanner = mdc.banner.MDCBanner; const MDCCheckbox = mdc.checkbox.MDCCheckbox; const MDCChip = mdc.chips.MDCChip; const MDCChipSet = mdc.chips.MDCChipSet; const MDCCircularProgress = mdc.circularProgress.MDCCircularProgress; const MDCDataTable = mdc.dataTable.MDCDataTable; const MDCDialog = mdc.dialog.MDCDialog; const MDCDrawer = mdc.drawer.MDCDrawer; const MDCFloatingLabel = mdc.floatingLabel.MDCFloatingLabel; const MDCFormField = mdc.formField.MDCFormField; const MDCIconButtonToggle = mdc.iconButton.MDCIconButtonToggle; const MDCLineRipple = mdc.lineRipple.MDCLineRipple; const MDCLinearProgress = mdc.linearProgress.MDCLinearProgress; const MDCList = mdc.list.MDCList; const MDCMenu = mdc.menu.MDCMenu; const MDCMenuSurface = mdc.menuSurface.MDCMenuSurface; const MDCNotchedOutline = mdc.notchedOutline.MDCNotchedOutline; const MDCRadio = mdc.radio.MDCRadio; const MDCRipple = mdc.ripple.MDCRipple; const MDCSegmentedButton = mdc.segmentedButton.MDCSegmentedButton; const MDCSelect = mdc.select.MDCSelect; const MDCSlider = mdc.slider.MDCSlider; const MDCSnackbar = mdc.snackbar.MDCSnackbar; const MDCSwitch = mdc.switchControl.MDCSwitch; const MDCTabBar = mdc.tabBar.MDCTabBar; const MDCTextField = mdc.textField.MDCTextField; const MDCTooltip = mdc.tooltip.MDCTooltip; const MDCTopAppBar = mdc.topAppBar.MDCTopAppBar;</script>
+
+</head>
+
+<body>
+    <!-- HTML web-elementen -->
+    <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
+        <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button"
+                    aria-label="Open navigation menu" onclick="toggleDrawer()">menu</button>
+
+                <span onclick="alleVerwijderen()" class="mdc-top-app-bar__title">Home</span>
+
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+                    aria-label="Search">search</button>
+                <button onclick="openMarketSheet()" class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+                    aria-label="Info">Information</button>
+                <button onclick="openNewsSheet()" class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+                    aria-label="help">help</button>
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+                    aria-label="Options">more_vert</button>
+            </section>
+        </div>
+
+        <aside class="mdc-drawer mdc-drawer--modal">
+            <div class="mdc-drawer__content">
+                <nav class="mdc-list"></nav>
+                <a class="mdc-list-item mdc-list-item--activated" href="#" aria-current="page" tabindex="0">
+                    <span class="mdc-list-item__ripple"></span>
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
+                    <span class="mdc-list-item__text">Inbox</span>
+                </a>
+                <a class="mdc-list-item" href="#">
+                    <span class="mdc-list-item__ripple"></span>
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
+                    <span class="mdc-list-item__text">Outgoing</span>
+                </a>
+                <a class="mdc-list-item" href="#">
+                    <span class="mdc-list-item__ripple"></span>
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+                    <span class="mdc-list-item__text">Drafts</span>
+                </a>
+                </nav>
+            </div>
+        </aside>
+
+        <div class="mdc-drawer-scrim"></div>
+    </header>
+
+    <main class="mdc-top-app-bar--fixed-adjust">
+        <div class="mdc-tab-bar" role="tablist">
+            <div class="mdc-tab-scroller">
+                <div class="mdc-tab-scroller__scroll-area">
+                    <div class="mdc-tab-scroller__scroll-content largeTab">
+                        <button class="mdc-tab mdc-tab--active largeTab" onclick="filter('large')" role="tab"
+                            aria-selected="true" tabindex="0">
+                            <span class="mdc-tab__content">
+                                <span class="mdc-tab__icon material-icons" aria-hidden="true">large</span>
+                                <span class="mdc-tab__text-label">largecap</span>
+                            </span>
+                            <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                                <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                            </span>
+                            <span class="mdc-tab__ripple "></span>
+                        </button>
+
+                        <button class="mdc-tab mdc-tab--active midTab" onclick="filter('mid')" role="tab"
+                            aria-selected="true" tabindex="0">
+                            <span class="mdc-tab__content">
+                                <span class="mdc-tab__icon material-icons" aria-hidden="true">mid</span>
+                                <span class="mdc-tab__text-label">midcap</span>
+                            </span>
+                            <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                                <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                            </span>
+                            <span class="mdc-tab__ripple"></span>
+                        </button>
+
+                        <button class="mdc-tab mdc-tab--active smallTab" onclick="filter('small')" role="tab"
+                            aria-selected="true" tabindex="0">
+                            <span class="mdc-tab__content">
+                                <span class="mdc-tab__icon material-icons" aria-hidden="true">small</span>
+                                <span class="mdc-tab__text-label">smallcap</span>
+                            </span>
+                            <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                                <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                            </span>
+                            <span class="mdc-tab__ripple"></span>
+                        </button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="crypto-cards" style="display: flex; flex-wrap: wrap; gap: 16px;"></div>
+    </main>
+
+
+    <!-- Sheet Section -->
+    <section id="coin-sheet" class="sheet sheet-out-of-view">
+        <header class="sheet-header">
+            <button class="material-icons close-btn">close</button>
+            <h2 id="coin-title">Titel</h2>
+        </header>
+        <main class="sheet-main">
+            <img id="coin-image" src="" alt="Coin image" />
+            <div id="coin-info">
+                <!-- Coin details komen hier -->
+            </div>
+        </main>
+        <footer class="sheet-footer">
+            <button class="material-icons">thumb_up</button>
+            <button class="material-icons">favorite</button>
+            <button class="material-icons">thumb_down</button>
+        </footer>
+    </section>
+
+    <aside id="market-sheet" class="mdc-bottom-sheet sheet-out-of-view from-right">
+        <!-- <div class="mdc-bottom-sheet__scrim"></div> -->
+        <div class="mdc-bottom-sheet__container">
+            <div class="mdc-bottom-sheet__header">
+                <h2>Market Overview</h2>
+                <button class="material-icons close-sheet">close</button>
+            </div>
+            <div class="mdc-bottom-sheet__content">
+                <p><strong>Totale Market Cap:</strong> <span id="market-cap"></span></p>
+                <p><strong>24u Volume:</strong> <span id="market-volume"></span></p>
+                <p><strong>BTC Dominantie:</strong> <span id="btc-dominance"></span></p>
+                <p><strong>Actieve Coins:</strong> <span id="active-coins"></span></p>
+            </div>
+        </div>
+
+
+    </aside>
+    <div class="mdc-bottom-sheet__scrim"></div>
+
+    <aside id="news-sheet" class="mdc-bottom-sheet sheet-out-of-view from-left">
+        <!-- <div class="mdc-bottom-sheet__scrim"></div> -->
+        <div class="mdc-bottom-sheet__container">
+            <div class="mdc-bottom-sheet__header">
+                <div class="sheet-header">
+                    <h2 class="mdc-typography--headline5">Crypto Nieuws</h2>
+                    <button onclick="closeNewsSheet()" class="material-icons close-sheet">close</button>
+
+                </div>
+            </div>
+            <div class="mdc-bottom-sheet__content">
+                <div class="news-item">
+                    <h3>Bitcoin stijgt 10%</h3>
+                    <p>Na een dip herstelt BTC snel richting $30.000.</p>
+                </div>
+                <div class="news-item">
+                    <h3>Ethereum upgrade live</h3>
+                    <p>Nieuwe functies verbeteren de schaalbaarheid drastisch.</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div id="overlay" class="overlay"></div>
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
