@@ -19,6 +19,7 @@ function filter(gefilterd) {
   document.querySelectorAll('.mdc-image-list__item').forEach(tab => tab.classList.add('hidden'));
   document.querySelectorAll(`.${gefilterd}`).forEach(element => element.classList.remove('hidden'));
 }
+
 function alleVerwijderen() {
   document.querySelectorAll('.mdc-tab').forEach(tab => {
     tab.classList.remove('mdc-tab--active');
@@ -188,6 +189,7 @@ window.addEventListener("beforeinstallprompt", (e) => {
     });
   });
 });
+
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
