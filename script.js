@@ -167,6 +167,11 @@ function openNewsSheet() {
 
 document.querySelector("#news-sheet .close-sheet").addEventListener("click", () => closeSheet("news-sheet"));
 
+
+
+
+////////////////////////////////////////////////////////////////////////
+
 let deferredPrompt;
 const installBtn = document.getElementById('install-button');
 
