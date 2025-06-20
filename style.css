@@ -1,0 +1,156 @@
+:root {
+  --mdc-theme-primary: #46dcf1;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* Algemene layout */
+.hidden {
+  display: none;
+}
+
+#crypto-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* Material tabs/drawer */
+.mdc-drawer .mdc-list-item__text {
+  color: #000;
+}
+
+.mdc-tab-bar {
+  background: #fff;
+}
+
+/* Afbeeldingenlijst */
+.mdc-image-list--masonry {
+  column-count: 2;
+  gap: 8px;
+}
+
+.mdc-image-list__image {
+  border-radius: 10px;
+  width: 100%;
+}
+
+/* Overlay voor sheets */
+#overlay,
+.mdc-bottom-sheet__scrim {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: none;
+}
+
+#overlay.active,
+.mdc-bottom-sheet.open .mdc-bottom-sheet__scrim {
+  display: block;
+}
+
+/* Basis styling voor alle sheets */
+.sheet,
+.mdc-bottom-sheet {
+  position: fixed;
+  background: white;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Sheet vanuit onder */
+.sheet {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 82%;
+  transform: translateY(100%);
+}
+
+.sheet.open {
+  transform: translateY(0%);
+}
+
+/* Sheet vanuit rechts */
+.mdc-bottom-sheet.from-right {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 80vw;
+  transform: translateX(100%);
+  border-radius: 20px 0 0 20px;
+}
+
+.mdc-bottom-sheet.open.from-right {
+  transform: translateX(0);
+}
+
+/* Sheet vanuit links */
+.mdc-bottom-sheet.from-left {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 80vw;
+  transform: translateX(-100%);
+  border-radius: 0 20px 20px 0;
+}
+
+.mdc-bottom-sheet.open.from-left {
+  transform: translateX(0);
+}
+
+/* Inhoud van de sheets */
+.sheet-header,
+.mdc-bottom-sheet__header {
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background:  var(--mdc-theme-primary);
+  color: white;
+}
+
+.sheet-main,
+.mdc-bottom-sheet__content {
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.sheet-footer,
+footer {
+  background: var(--mdc-theme-primary);
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sheet-footer button,
+footer .mdc-tab__icon {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: none;
+}
+
+.overlay.active {
+  display: block;
+}
